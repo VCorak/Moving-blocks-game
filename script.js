@@ -128,6 +128,8 @@ function handleProjectiles(){
         //console.log('projectiles ' + projectiles.length);
     }
 }
+
+
 // Defenders
 const defender1 = new Image();
 defender1.src = 'images/defender1.png';
@@ -148,8 +150,8 @@ class Defender {
         this.timer = 0;
         this.frameX = 0;
         this.frameY = 0;
-        this.spriteWidth = 121;
-        this.spriteHeight = 121;
+        this.spriteWidth = 128;
+        this.spriteHeight = 128;
         this.minFrame = 0;
         this.maxFrame = 16;
         this.chosenDefender = chosenDefender;
@@ -193,7 +195,6 @@ if(this.chosenDefender === 1) {
         this.maxFrame = 12;
     }
 }
-
         if (this.shooting && this.shootNow){
             //this.timer++;
             //if (this.timer % 100 === 0){ // every 100 ticks do something, if timer is /100 or zero push new projectile
@@ -505,10 +506,8 @@ function collision(first, second) {
     ) {
         return true;
     };
-
-
 };
 
 window.addEventListener('resize', function(){
     canvasPosition = canvas.getBoundingClientRect(); // on resizing window mouse returns correct x and y coordinates
-})
+});
