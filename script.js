@@ -10,6 +10,7 @@ const cellGap = 3; // cell size, square size of defender blue cell
 let numberOfResources = 300;
 let enemiesInterval = 600;
 let frame = 0;
+let gameSpeed = 0.5;
 let gameOver = false;
 let score = 0;
 const winningScore = 50;
@@ -475,6 +476,28 @@ function handleFloatingMessages(){
     }
 }
 
+// Repeating background
+const background = new Image();
+background.src = 'images/background2.jpg';
+
+const BG = {
+    x1: 0,
+    x2: canvas.width,
+    y: 0,
+    width: canvas.width,
+    height: canvas.height
+
+}
+
+function handleBackground(){
+    BG.x1 -= gameSpeed;
+    if (BG.x1 < -BG.width) BG.x1 = BG.width;
+    BG.x2 -= gameSpeed;
+    if (BG.x2 < -BG.width) BG.x2 = BG.width;
+    ctx.drawImage(background, BG.x1, BG.y, BG.width, BG.height);
+    ctx.drawImage(background, BG.x2, BG.y, BG.width, BG.height);
+}
+
 
 
 // REQURSION?? when function calls itself // Animate() is not a really a recursion,
@@ -484,7 +507,8 @@ function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'green';
     ctx.fillRect(0,0, controlsBar.width, controlsBar.height);
-    handleGameGrid(); // order in which we call function is important to what is drawn first and what comes on the top of it, have to think about layers in the game
+    handleBackground();
+    handleGameGrid();// order in which we call function is important to what is drawn first and what comes on the top of it, have to think about layers in the game
     handleDefenders();
     handleResources();
     handleProjectiles();
