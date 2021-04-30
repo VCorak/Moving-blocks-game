@@ -153,7 +153,7 @@ class Defender {
         this.spriteWidth = 128;
         this.spriteHeight = 128;
         this.minFrame = 0;
-        this.maxFrame = 16;
+        this.maxFrame = 36;
         this.chosenDefender = chosenDefender;
     }
     draw(){
@@ -271,9 +271,9 @@ ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
 ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
 ctx.strokeStyle = card1stroke;
 ctx.strokeRect(card1.x, card1.y, card1.width, card1.height);
-ctx.drawImage(defender1, 0, 0, 194, 194, 0, 5, 194/2, 194/2); // just hardcoded values, bcs these frames are static, they won't move
+ctx.drawImage(defender1, 0, 0, 128, 194, 0, 5, 128/2, 128/2); // just hardcoded values, bcs these frames are static, they won't move
 ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
-ctx.drawImage(defender2, 0, 0, 194, 194, 80, 5, 194/2, 194/2);
+ctx.drawImage(defender2, 0, 0, 128, 128, 80, 5, 128/2, 128/2);
 ctx.strokeStyle = card2stroke;
 ctx.strokeRect(card2.x, card2.y, card2.width, card2.height);
 
@@ -304,13 +304,13 @@ class Enemy {
         this.frameY = 0; // this frame has only one row so the frame y will always be 0 which represents the first row
         this.minFrame = 0; // cycle through multiline sprite sheets
         if (this.enemyType === enemy1) {
-            this.maxFrame = 1; // max animations in a row, can be changed
+            this.maxFrame = 12; // max animations in a row, can be changed
         } else if (this.enemyType === enemy2){
             this.maxFrame = 1; // max animations in a row, can be changed
         }
 
-        this.spriteWidth = 270; // png size
-            this.spriteHeight = 270;
+        this.spriteWidth = 128; // png size
+            this.spriteHeight = 128;
 
     }
     update(){
