@@ -271,7 +271,7 @@ ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
 ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
 ctx.strokeStyle = card1stroke;
 ctx.strokeRect(card1.x, card1.y, card1.width, card1.height);
-ctx.drawImage(defender1, 0, 0, 128, 194, 0, 5, 128/2, 128/2); // just hardcoded values, bcs these frames are static, they won't move
+ctx.drawImage(defender1, 0, 0, 128, 128, 0, 5, 128/2, 128/2); // just hardcoded values, bcs these frames are static, they won't move
 ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
 ctx.drawImage(defender2, 0, 0, 128, 128, 80, 5, 128/2, 128/2);
 ctx.strokeStyle = card2stroke;
@@ -482,7 +482,7 @@ function handleFloatingMessages(){
 //If it were a real recursion calling itself, you will get a stack overflow at the 10.000th iteration in chrome based browsers.
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'blue';
+    ctx.fillStyle = 'green';
     ctx.fillRect(0,0, controlsBar.width, controlsBar.height);
     handleGameGrid(); // order in which we call function is important to what is drawn first and what comes on the top of it, have to think about layers in the game
     handleDefenders();
