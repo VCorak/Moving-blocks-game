@@ -95,7 +95,7 @@ class Projectiles {
         this.width = 10;
         this.height = 10;
         this.power = 20;
-        this.speed = 25;
+        this.speed = 30;
     }
     update(){
         this.x += this.speed;
@@ -121,7 +121,7 @@ function handleProjectiles(){
             }
         }
 
-        if (projectiles[i] && projectiles[i].x > canvas.width - cellSize){ // we want to hit the enemy when it's visible in cell
+        if (projectiles[i] && projectiles[i].x > canvas.width - cellSize - cellGap){ // we want to hit the enemy when it's visible in cell
             projectiles.splice(i, 1); // removing it from array when it gets to end of CellSize
             i--; // this rule is for every other projectile coming
         }
@@ -169,30 +169,30 @@ class Defender {
             ctx.drawImage(defender2, this.frameX * this.spriteWidth, 0,
                 this.spriteWidth, this.spriteHeight, this.x, this.y, this.width, this.height);
         }
-        //ctx.drawImage(defender1, sx, sy, sw, sh, dx, dy, dw, dh);
+        //ctx.drawImage(img, sx, sy, sw, sh, dx, dy, dw, dh); => what do we need to draw image, where do we want to draw image- s= source, d= destination //
 
     }
     update(){ // adding new projectiles to array only if enemy is visible (no shooting in empty space)
         if (frame % 10 === 0) {
             if (this.frameX < this.maxFrame) this.frameX++;
             else this.frameX = this.minFrame;
-            if (this.frameX === 15) this.shootNow = true;
+            if (this.frameX === 1) this.shootNow = true; // pick a frame from image when to start shooting
         }
-if(this.chosenDefender === 1) {
+if (this.chosenDefender === 1) {
     if (this.shooting) {
         this.minFrame = 0;
-        this.maxFrame = 16;
+        this.maxFrame = 8;
     } else {
-        this.minFrame = 17;
+        this.minFrame = 9;
         this.maxFrame = 24;
     }
 } else if (this.chosenDefender === 2) {
     if (this.shooting) {
-        this.minFrame = 13;
-        this.maxFrame = 28;
-    } else {
         this.minFrame = 0;
-        this.maxFrame = 12;
+        this.maxFrame = 8;
+    } else {
+        this.minFrame = 9;
+        this.maxFrame = 24;
     }
 }
         if (this.shooting && this.shootNow){
@@ -230,6 +230,8 @@ function handleDefenders(){
         }
     }
 }
+
+// Cards to choose defenders
 const card1 = {
     x: 10,
     y: 10,
@@ -288,23 +290,23 @@ enemyTypes.push(enemy2);
 
 
 class Enemy {
-    constructor(verticalPosition){ //enemie on the same row as defender
+    constructor(verticalPosition){ // enemy on the same row as defender
         this.x = canvas.width;
         this.y = verticalPosition;
         this.width = cellSize - cellGap * 2;
         this.height = cellSize - cellGap * 2;
         this.speed = Math.random() * 0.2 + 0.4; // game speed 0.4 is slow
         this.movement = this.speed;
-        this.health = 100;
+        this.health = 50;
         this.maxHealth = this.health;
         this.enemyType = enemyTypes[Math.floor(Math.random() * enemyTypes.length)];
         this.frameX = 0;
         this.frameY = 0; // this frame has only one row so the frame y will always be 0 which represents the first row
-        this.minFrame = 0; // cycle through multiline spritesheets
+        this.minFrame = 0; // cycle through multiline sprite sheets
         if (this.enemyType === enemy1) {
-            this.maxFrame = 4; // max animations in a row, can be changed
+            this.maxFrame = 1; // max animations in a row, can be changed
         } else if (this.enemyType === enemy2){
-            this.maxFrame = 7; // max animations in a row, can be changed
+            this.maxFrame = 1; // max animations in a row, can be changed
         }
 
         this.spriteWidth = 270; // png size
@@ -353,7 +355,7 @@ function handleEnemies(){
         }
     }
     if (frame % enemiesInterval === 0 && score < winningScore){ // every 600 intervals new enemy is added to board
-        let verticalPosition = Math.floor(Math.random() * 5  + 1) * cellSize + cellGap; // enemie gets to one of the row of the grid. Had to add cellGap bcs enemies square was bigger than defender and shooting didn't start automatically...
+        let verticalPosition = Math.floor(Math.random() * 5  + 1) * cellSize + cellGap; // enemy gets to one of the row of the grid. Had to add cellGap bcs enemies square was bigger than defender and shooting didn't start automatically...
         // grid is made of cells 100*100 px, 5+1 is 5 vertical cells plus one *cellSize which is 100px, vertical position will be random number, 500, 400, 200
         // which coresponds to vertical coordinates of our rows
         enemies.push(new Enemy(verticalPosition)); // create new enemy with constructor
@@ -404,7 +406,7 @@ function handleGameStatus(){
     ctx.fillStyle = 'gold';
     ctx.font = '30px Orbitron';
     ctx.fillText('Score: ' + score, 180, 40); // add points to score when enemy defeated (explanation for x and y- these are coordinates on which you move text in canvas)
-    ctx.fillText('Resources: ' + numberOfResources, 180, 80); // add resources to defender when enemy defeated
+    ctx.fillText('Resources: ' + numberOfResources, 180, 80); // add resources to defender when enemy defeated text
     if (gameOver){
         ctx.fillStyle = 'black';
         ctx.font = '90px Orbitron';
